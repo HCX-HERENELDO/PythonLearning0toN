@@ -150,8 +150,8 @@ PythonLearning/
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/你的用户名/PythonLearning.git
-   cd PythonLearning
+   git clone https://github.com/HCX-HERENELDO/PythonLearning0toN.git
+   cd PythonLearning0toN
    ```
 
 2. **创建虚拟环境**（推荐）
@@ -298,9 +298,11 @@ PythonLearning/
 ## 📮 联系方式
 
 如有问题或建议，欢迎：
-- 提交 Issue
-- 发起 Discussion
+- 提交 Issue：[GitHub Issues](https://github.com/HCX-HERENELDO/PythonLearning0toN/issues)
+- 发送邮件：hereneldo@163.com
 - 提交 Pull Request
+
+**作者**：HCX-HERENELDO
 
 ---
 
