@@ -1,0 +1,124 @@
+# ===========================================
+# Python 学习项目 Git 忽略配置
+# ===========================================
+
+# -----------------
+# Python 字节码
+# -----------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# -----------------
+# 虚拟环境
+# -----------------
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# -----------------
+# IDE 配置
+# -----------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# -----------------
+# Jupyter Notebook
+# -----------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -----------------
+# 测试覆盖率
+# -----------------
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# -----------------
+# 分发/打包
+# -----------------
+dist/
+build/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# -----------------
+# 日志文件
+# -----------------
+*.log
+logs/
+
+# -----------------
+# 数据库文件
+# -----------------
+*.db
+*.sqlite
+*.sqlite3
+
+# -----------------
+# 模型文件（通常很大）
+# -----------------
+*.pth
+*.pt
+*.h5
+*.pkl
+*.pickle
+
+# -----------------
+# 数据文件
+# -----------------
+data/
+datasets/
+*.csv
+*.json
+!example*.json
+!example*.csv
+
+# -----------------
+# 环境变量
+# -----------------
+.env
+.env.local
+.env.*.local
+
+# -----------------
+# 操作系统
+# -----------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# -----------------
+# 临时文件
+# -----------------
+*.tmp
+*.temp
+*.bak
+
+# -----------------
+# 敏感信息
+# -----------------
+secrets/
+credentials/
+*.pem
+*.key
