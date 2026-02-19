@@ -5,8 +5,9 @@ services:
     source: .
     build:
       builder: nixpacks
+      buildCommand: pip install -r web_platform/requirements.txt
     deploy:
-      startCommand: gunicorn app:app --host 0.0.0.0 --port $PORT
+      startCommand: cd web_platform && gunicorn app:app --host 0.0.0.0 --port $PORT
       healthcheckPath: /
       healthcheckTimeout: 100
       restartPolicyType: on_failure

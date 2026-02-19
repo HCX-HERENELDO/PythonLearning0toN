@@ -1,0 +1,7 @@
+{
+  "providers": ["python"],
+  "build": {
+    "cmds": ["pip install -r requirements.txt"]
+  },
+  "start": "gunicorn app:app"
+}

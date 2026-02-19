@@ -14,8 +14,21 @@ import tempfile
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 
-# 添加项目根目录到路径
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 确定项目根目录
+# 获取当前文件所在目录 (web_platform)
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+# 项目根目录是 web_platform 的父目录
+BASE_DIR = os.path.dirname(CURRENT_DIR)
+
+# 检查内容目录是否存在
+if not os.path.exists(os.path.join(BASE_DIR, '01_基础语法')):
+    # 如果根目录没有内容，尝试使用当前目录
+    if os.path.exists(os.path.join(CURRENT_DIR, '01_基础语法')):
+        BASE_DIR = CURRENT_DIR
+    else:
+        # 都没有，使用当前目录作为基础目录
+        BASE_DIR = CURRENT_DIR
+
 sys.path.insert(0, BASE_DIR)
 
 app = Flask(__name__, 
@@ -32,26 +45,60 @@ class ContentParser:
     
     def __init__(self, base_dir):
         self.base_dir = base_dir
+        self._check_content_available()
+    
+    def _check_content_available(self):
+        """检查内容目录是否可用"""
+        self.content_available = os.path.exists(self.base_dir)
+        if not self.content_available:
+            print(f"⚠️ 内容目录不存在: {self.base_dir}")
+            print("提示: 在云端部署时，学习内容可能需要单独配置")
     
     def get_modules(self):
         """获取所有学习模块"""
+        if not self.content_available:
+            return self._get_demo_modules()
+        
         modules = []
-        for item in sorted(os.listdir(self.base_dir)):
-            item_path = os.path.join(self.base_dir, item)
-            if os.path.isdir(item_path) and re.match(r'^\d+_', item):
-                # 解析模块编号和名称
-                match = re.match(r'^(\d+)_(.+)$', item)
-                if match:
-                    num, name = match.groups()
-                    lessons = self._get_lessons(item_path)
-                    modules.append({
-                        'id': int(num),
-                        'name': name,
-                        'path': item,
-                        'lesson_count': len(lessons),
-                        'lessons': lessons
-                    })
-        return sorted(modules, key=lambda x: x['id'])
+        try:
+            for item in sorted(os.listdir(self.base_dir)):
+                item_path = os.path.join(self.base_dir, item)
+                if os.path.isdir(item_path) and re.match(r'^\d+_', item):
+                    # 解析模块编号和名称
+                    match = re.match(r'^(\d+)_(.+)$', item)
+                    if match:
+                        num, name = match.groups()
+                        lessons = self._get_lessons(item_path)
+                        modules.append({
+                            'id': int(num),
+                            'name': name,
+                            'path': item,
+                            'lesson_count': len(lessons),
+                            'lessons': lessons
+                        })
+        except Exception as e:
+            print(f"读取模块失败: {e}")
+            return self._get_demo_modules()
+        
+        return sorted(modules, key=lambda x: x['id']) if modules else self._get_demo_modules()
+    
+    def _get_demo_modules(self):
+        """返回演示模块（当内容不可用时）"""
+        return [
+            {
+                'id': 1,
+                'name': '基础语法',
+                'path': '01_基础语法',
+                'lesson_count': 1,
+                'lessons': [{
+                    'id': 1,
+                    'name': '欢迎使用',
+                    'filename': 'welcome.py',
+                    'type': 'py',
+                    'path': 'demo'
+                }]
+            }
+        ]
     
     def _get_lessons(self, module_path):
         """获取模块下的所有课程"""
