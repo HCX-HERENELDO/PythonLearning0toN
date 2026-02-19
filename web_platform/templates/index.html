@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python学习平台 - Hereneldo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+</head>
+<body>
+    <!-- 浮动粒子背景 -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fab fa-python"></i>
+            <span>Python学习平台</span>
+        </div>
+        <div class="nav-search">
+            <input type="text" id="searchInput" placeholder="搜索课程...">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-page="home">
+                <i class="fas fa-home"></i> 首页
+            </a>
+            <a href="#" class="nav-link" data-page="modules">
+                <i class="fas fa-book"></i> 学习模块
+            </a>
+            <a href="#" class="nav-link" data-page="playground">
+                <i class="fas fa-code"></i> 代码练习
+            </a>
+            <a href="#" class="nav-link" data-page="about">
+                <i class="fas fa-user"></i> 关于作者
+            </a>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 首页 -->
+        <section id="homePage" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>从零开始学习 Python</h1>
+                    <p class="hero-subtitle">系统化的学习路径，从基础语法到深度学习，助你掌握Python编程</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="moduleCount">10</span>
+                            <span class="stat-label">学习模块</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="lessonCount">50+</span>
+                            <span class="stat-label">课程内容</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">可运行代码</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-large" onclick="showPage('modules')">
+                        <i class="fas fa-rocket"></i> 开始学习
+                    </button>
+                </div>
+                <div class="hero-image">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <pre><code class="language-python"># 欢迎来到Python世界！
+print("Hello, Python!")
+
+# 从基础到进阶
+name = "学习者"
+print(f"你好, {name}!")
+
+# 让我们一起开始编程之旅吧 🚀</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <h2>平台特色</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>在线编程</h3>
+                        <p>无需安装环境，直接在浏览器中编写和运行Python代码</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3>系统学习</h3>
+                        <p>从基础语法到深度学习，完整的知识体系和学习路径</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>实战项目</h3>
+                        <p>丰富的实战案例，将所学知识应用到真实项目中</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>工具技巧</h3>
+                        <p>PyCharm使用技巧，提升开发效率</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-start">
+                <h2>快速开始</h2>
+                <div class="module-preview" id="modulePreview">
+                    <!-- 动态加载模块预览 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习模块页面 -->
+        <section id="modulesPage" class="page">
+            <div class="modules-container">
+                <aside class="sidebar">
+                    <h3><i class="fas fa-list"></i> 学习目录</h3>
+                    <div class="module-list" id="moduleList">
+                        <!-- 动态加载模块列表 -->
+                    </div>
+                </aside>
+                <div class="content-area">
+                    <div id="lessonContent" class="lesson-content">
+                        <div class="welcome-message">
+                            <i class="fas fa-hand-pointer"></i>
+                            <h3>请从左侧选择课程开始学习</h3>
+                            <p>点击课程名称查看详细内容</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 代码练习页面 -->
+        <section id="playgroundPage" class="page">
+            <div class="playground">
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <h3><i class="fas fa-edit"></i> 代码编辑器</h3>
+                        <div class="editor-actions">
+                            <button class="btn btn-sm" onclick="clearCode()">
+                                <i class="fas fa-eraser"></i> 清空
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="runCode()">
+                                <i class="fas fa-play"></i> 运行
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-wrapper">
+                        <div class="line-numbers" id="lineNumbers"></div>
+                        <textarea id="codeEditor" placeholder="# 在这里输入Python代码...
+print('Hello, World!')" spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="output-container">
+                    <div class="output-header">
+                        <h3><i class="fas fa-terminal"></i> 输出结果</h3>
+                        <button class="btn btn-sm" onclick="clearOutput()">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                    </div>
+                    <div class="output-area" id="outputArea">
+                        <div class="output-placeholder">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>运行代码后在此查看结果</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-templates">
+                <h3>代码模板</h3>
+                <div class="template-list">
+                    <button class="template-btn" onclick="loadTemplate('hello')">
+                        <i class="fas fa-hand-wave"></i> Hello World
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('loop')">
+                        <i class="fas fa-sync"></i> 循环示例
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('function')">
+                        <i class="fas fa-cog"></i> 函数定义
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('class')">
+                        <i class="fas fa-cubes"></i> 类定义
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('list')">
+                        <i class="fas fa-list-ol"></i> 列表操作
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于作者页面 -->
+        <section id="aboutPage" class="page">
+            <div class="about-container">
+                <div class="author-card">
+                    <div class="author-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="author-info">
+                        <h2 id="authorName">Hereneldo</h2>
+                        <p class="author-desc" id="authorDesc">Python学习者，热爱编程，持续学习中...</p>
+                    </div>
+                </div>
+                
+                <div class="contact-section">
+                    <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                    <div class="contact-list">
+                        <a href="#" class="contact-item" id="contactGithub">
+                            <i class="fab fa-github"></i>
+                            <div class="contact-info">
+                                <span class="contact-label">GitHub</span>
+                                <span class="contact-value" id="githubValue">HCX-HERENELDO</span>
+                            </div>
+                        </a>
+                        <a href="mailto:Hereneldo@163.com" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-info">
+                                <span class="contact-label">邮箱</span>
+                                <span class="contact-value" id="emailValue">Hereneldo@163.com</span>
+                            </div>
+                        </a>
+                        <div class="contact-item">
+                            <i class="fab fa-weixin"></i>
+                            <div class="contact-info">
+                                <span class="contact-label">微信</span>
+                                <span class="contact-value" id="wechatValue">HerineledoHCX</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-qq"></i>
+                            <div class="contact-info">
+                                <span class="contact-label">QQ</span>
+                                <span class="contact-value" id="qqValue">2156535625</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3><i class="fas fa-info-circle"></i> 关于项目</h3>
+                    <div class="info-card">
+                        <p>这是一个<strong>Python学习交互平台</strong>，旨在为Python学习者提供一个系统化、交互式的学习环境。</p>
+                        <h4>主要功能：</h4>
+                        <ul>
+                            <li>📚 <strong>学习模块</strong> - 10大模块，涵盖从基础到进阶的完整知识体系</li>
+                            <li>💻 <strong>在线编程</strong> - 无需配置环境，直接在浏览器中运行Python代码</li>
+                            <li>🎯 <strong>练习题</strong> - 每节课程配套练习，巩固所学知识</li>
+                            <li>🔧 <strong>工具技巧</strong> - PyCharm使用技巧，提升开发效率</li>
+                            <li>🚀 <strong>实战项目</strong> - 真实项目案例，学以致用</li>
+                        </ul>
+                        <p class="tech-stack">
+                            <strong>技术栈：</strong> Flask + HTML/CSS/JavaScript + Highlight.js
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Python学习平台 | 作者: Hereneldo</p>
+            <div class="footer-links">
+                <a href="https://github.com/HCX-HERENELDO" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 搜索结果弹窗 -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
